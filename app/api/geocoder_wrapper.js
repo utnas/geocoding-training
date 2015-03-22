@@ -15,15 +15,13 @@
                 });
                 response.on('end', function () {
                     if (response.statusCode === 200) {
-                        var parsedBody = JSON.parse(body);
-                        if (parsedBody) {
-                            result = getLocationFrom(parsedBody);
-                        } else {
-                            throw {
-                                name: 'JsonParsingError',
-                                message: 'The json was not correctly parsed'
-                            };
-                        }
+                        //Because google api response is asynchronous
+                        setTimeout(function () {
+                            result = parseLocation(body);
+                            console.log('Address: ' + result.formattedAddress);
+                            console.log("Latitude: " + getLatitudeFrom(result.geometry.location));
+                            console.log("Longitude: " + getLongitudeFrom(result.geometry.location));
+                        }, 2000);
                     }
                     else {
                         throw {
@@ -32,17 +30,22 @@
                     }
                 });
             });
-            //Because google api response is asynchronous
-            setTimeout(function () {
-                console.log('Address: ' + result.formattedAddress);
-                console.log("Latitude: " + getLatitudeFrom(result.geometry.location));
-                console.log("Longitude: " + getLongitudeFrom(result.geometry.location));
-            }, 2000);
-            //TODO: find a way to return the value
             return result;
         };
 
         // Private methods
+        var parseLocation = function (body) {
+            var parsedBody = JSON.parse(body);
+            if (parsedBody) {
+                return getLocationFrom(parsedBody);
+            } else {
+                throw {
+                    name: 'JsonParsingError',
+                    message: 'The json was not correctly parsed'
+                };
+            }
+        };
+
         var getLocationFrom = function (parsedBody) {
             var result = {},
                 index = 0;
