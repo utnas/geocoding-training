@@ -5,6 +5,6 @@ var
 
 
 var geocoder = new Geocoder();
-address = geocoder.computeLocationFromAddress('2160 rue de rouen, Montreal');
+geocoder.computeLocationFromAddress('2160 rue de rouen, Montreal');
 
 module.exports = app;

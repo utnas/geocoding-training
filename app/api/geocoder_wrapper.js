@@ -15,13 +15,7 @@
                 });
                 response.on('end', function () {
                     if (response.statusCode === 200) {
-                        //Because google api response is asynchronous
-                        setTimeout(function () {
-                            result = parseLocation(body);
-                            console.log('Address: ' + result.formattedAddress);
-                            console.log("Latitude: " + getLatitudeFrom(result.geometry.location));
-                            console.log("Longitude: " + getLongitudeFrom(result.geometry.location));
-                        }, 2000);
+                        result = parseLocation(body);
                     }
                     else {
                         throw {
@@ -30,7 +24,12 @@
                     }
                 });
             });
-            return result;
+            //Because google api response is asynchronous
+            setTimeout(function () {
+                console.log('Address: ' + result.formattedAddress);
+                console.log("Latitude: " + getLatitudeFrom(result.geometry.location));
+                console.log("Longitude: " + getLongitudeFrom(result.geometry.location));
+            }, 2000);
         };
 
         // Private methods
