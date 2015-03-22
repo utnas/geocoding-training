@@ -1,9 +1,7 @@
-var
-    express = require('express'),
+var express = require('express'),
     app = express(),
-    Geocoder = require('../app/api/geocoder_wrapper');
+    geocoder = require('../app/api/geocoder_wrapper');
 
-var geocoder = new Geocoder();
-geocoder.computeLocationFromAddress('2160 rue de rouen, Montreal');
+geocoder.computeLocation('2160 rue de rouen, Montreal');
 
 module.exports = app;
