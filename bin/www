@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 
-var app = require('../app/app');
+var app = require('../app/runner');
 var debug = require('debug')('sweetiq-geocoding:server');
 var http = require('http');
 
