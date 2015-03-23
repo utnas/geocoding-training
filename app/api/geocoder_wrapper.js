@@ -7,7 +7,12 @@
         this.computeLocation('Montreal');
     }
 
-    // Public methods
+    /**
+     * Returns the location(latitude, longitude) from a provided valid address given
+     *
+     * @param {String} address, required
+     * @api public
+     */
     Geocoder.prototype.computeLocation = function (address) {
         var body = '',
             result = {};
